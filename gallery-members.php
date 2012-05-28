@@ -162,7 +162,7 @@ function wpse32840_filter_nav($items, $args)
      * in twenty eleven, we can check to see if this is the "primary" menu
      * Other thigns will be different.  If we're not in the primary menu, bail
      */
-    if('primary' != $args->theme_location) return $menu;
+    if('primary' != $args->theme_location) return $items;
     
     // Not logged in?  return the menu
     if(!is_user_logged_in()) return $items;
