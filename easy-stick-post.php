@@ -99,7 +99,7 @@ class WPSE_58818_Stick_Post
         // Hook into the footer and spit out some JavaScript
         add_action(
             'wp_footer',
-            array(__CLASs__, 'footer')
+            array(__CLASS__, 'footer')
         );
     }
 
