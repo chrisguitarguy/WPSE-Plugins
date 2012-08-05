@@ -35,6 +35,11 @@ function wpse60859_register_shortcode()
         'posts_per_month',
         'wpse60859_shortcode_cb'
     );
+
+    add_shortcode(
+        'posts_per_month_last',
+        'wpse60859_shortcode_alt_cb'
+    );
 }
 
 
@@ -74,6 +79,50 @@ function wpse60859_shortcode_cb($args)
     // build the display
     $out = '<ul>';
     foreach(range(1, 12) as $m)
+    {
+        $month = date_i18n('F', mktime(0, 0, 0, $m, 1));
+        $out .= sprintf(
+            '<li>%s %d</li>',
+            $month,
+            isset($res[$m]) ? $res[$m]->post_count : 0
+        );
+    }
+    $out .= '</ul>';
+
+    return $out;
+}
+
+
+/**
+ * Callback for displaying the last twelve months of posts
+ *
+ * @uses $wpdb
+ */
+function wpse60859_shortcode_alt_cb()
+{
+    global $wpdb;
+    $res = $wpdb->get_results(
+        "SELECT MONTH(post_date) as post_month, COUNT(ID) as post_count " .
+        "FROM {$wpdb->posts} " .
+        "WHERE post_date BETWEEN DATE_SUB(NOW(), INTERVAL 12 MONTH) AND NOW() " .
+        "AND post_status = 'publish' " .
+        "GROUP BY post_month ORDER BY post_date ASC", OBJECT_K
+    );
+
+    print_r($res);
+
+    $cur = absint(date('n'));
+    if($cur > 1)
+    {
+        $looper = array_merge(range($cur, 12), range(1, $cur-1));
+    }
+    else
+    {
+        $looper = range(1, 12);
+    }
+
+    $out = '<ul>';
+    foreach($looper as $m)
     {
         $month = date_i18n('F', mktime(0, 0, 0, $m, 1));
         $out .= sprintf(
