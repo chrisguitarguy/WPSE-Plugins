@@ -193,7 +193,7 @@ class WPSE_52793
         }
 
         // whew, they've agreed.  Set a cookie, and send them back to the page.
-        $i = setcookie(
+        setcookie(
             self::COOKIE,
             '1',
             strtotime('+30 Days'), // might want to change this?
