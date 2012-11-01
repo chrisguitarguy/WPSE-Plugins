@@ -116,6 +116,9 @@ class Custom_Date_Base
             $regex = '#^' . preg_quote($front, '#') . '(/date)?#ui';
 
             $wp_rewrite->date_structure = preg_replace($regex, "/{$db}/", $date_s);
+
+            // apprently we need to make sure this happens?
+            flush_rewrite_rules();
         }
     }
 }
