@@ -26,7 +26,7 @@ License: GPL2
 
 add_action('admin_notices', 'wpse72637_show_names');
 /**
- * An example of how to show an admin notice.
+ * An example of how to show an admin notice. Shows active plugins.
  *
  * @uses    get_plugins
  * @return  void
@@ -37,11 +37,10 @@ function wpse72637_show_names()
 
     foreach(get_plugins() as $p_basename => $plugin)
     {
-        $filename = is_plugin_active($p_basename) ?
-            "{$plugin['Name']}: Active" : "{$plugin['Name']}: Disabled";
-        $paths[] = $filename;   
+        $paths[] = "{$plugin['Name']}: " .
+            (is_plugin_active($p_basename) ? 'Active' : 'Disabled');
     }
 
-    echo '<div class="error">', implode(' --- ', $paths), '</div>';
+    echo '<div class="updated"><p>', implode(' --- ', $paths), '<p></div>';
 }
 
