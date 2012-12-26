@@ -66,6 +66,7 @@ class Custom_Author_Base
 
         if ($base) {
             $wp_rewrite->author_base = $base;
+            $wp_rewrite->author_structure = '/' . $wp_rewrite->author_base. '/%author%';
         }
     }
 
