@@ -27,7 +27,7 @@ add_filter('xmlrpc_methods', 'wpse44849_xmlrpc_methods');
 /**
  * Filters the XMLRPC method to include our own custom method
  */
-function wpse44849_xmlrpc_methods($method)
+function wpse44849_xmlrpc_methods($methods)
 {
     $methods['post_autop'] = 'wpse44849_autop_callback';
     return $methods;
