@@ -39,7 +39,9 @@
 add_action('login_init', 'wpse187831_redir_loggedin');
 function wpse187831_redir_loggedin()
 {
-    if (!is_user_logged_in()) {
+    global $action;
+
+    if ('logout' === $action || !is_user_logged_in()) {
         return;
     }
 
